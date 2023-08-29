@@ -1,3 +1,5 @@
 transformers == 4.32.0
-torch == 2.0.1
+torch==2.0.1 --index-url https://download.pytorch.org/whl/cu118
 sentencepiece == 0.1.99
+easydict
+seqeval
