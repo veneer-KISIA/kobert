@@ -179,7 +179,13 @@ def predict(pred_config):
                 if pred == 'O':
                     line = line + word + " "
                 else:
-                    line = line + "[{}:{}] ".format(word, pred)
+                    if pred_config.predict_labels:
+                        if pred[:-2] in pred_config.predict_labels:
+                            line = line + f"[{pred[:-2]}] "
+                        else:
+                            line = line + word + " "
+                    else:
+                        line = line + f"[{word}: {pred}] "
 
             f.write("{}\n".format(line.strip()))
 
