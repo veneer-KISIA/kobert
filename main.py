@@ -1,4 +1,4 @@
-import easydict
+import argparse
 
 from trainer import Trainer
 from utils import init_logger, load_tokenizer, set_seed, MODEL_CLASSES, MODEL_PATH_MAP
@@ -31,35 +31,37 @@ def main(args):
 
 
 if __name__ == '__main__':
-    args = easydict.EasyDict({
-        'task':'veneer-ner',
-        'model_dir':'./model',
-        'data_dir':'./data',
-        'pred_dir':'./preds',
-        'train_file':'train.tsv',
-        'test_file':'test.tsv',
-        'label_file':'label.txt',
-        'write_pred':'store_true',
-        'model_type':'kobert',
-        'model_name_or_path':'monologg/kobert',
-        'seed': 42,
-        'train_batch_size': 128,
-        'eval_batch_size': 64,
-        'max_seq_len': 50,
-        'learning_rate': 5e-5,
-        'num_train_epochs': 20.0,
-        'weight_decay': 0.0,
-        'gradient_accumulation_steps': 1,
-        'adam_epsilon': 1e-8,
-        'max_grad_norm': 1.0,
-        'max_steps': -1,
-        'warmup_steps': 0,
-        'logging_steps': 1000,
-        'save_steps': 1000,
-        'do_train': True,
-        'do_eval': True,
-        'no_cuda': False,
-    })
+
+    args = argparse.Namespace()
+
+    args.task = 'veneer-ner'
+    args.model_dir = './model'
+    args.data_dir = './data'
+    args.pred_dir = './preds'
+    args.train_file = 'train.tsv'
+    args.test_file = 'test.tsv'
+    args.label_file = 'label.txt'
+    args.write_pred = True
+    args.model_type = 'kobert'
+    args.seed = 42
+    args.train_batch_size = 256
+    args.eval_batch_size = 256
+    args.max_seq_len = 50
+    args.learning_rate = 5e-5
+    args.num_train_epochs = 15.0
+    args.weight_decay = 0.0
+    args.gradient_accumulation_steps = 1
+    args.adam_epsilon = 1e-8
+    args.max_grad_norm = 1.0
+    args.max_steps = -1
+    args.warmup_steps = 0
+    args.logging_steps = 1000
+    args.save_steps = 1000
+    args.do_train = True
+    args.do_eval = True
+    args.no_cuda = False
+
+    args.model_name_or_path = MODEL_PATH_MAP[args.model_type]
 
     main(args)
 
